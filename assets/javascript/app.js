@@ -33,7 +33,6 @@ Will use radio buttons for this as only one radio button can be selected at a ti
 */
 
 // Make object for game questions
-
 var quesBank = [{
     name: "q1", //this will be used as the name for the radio button
     ques: "What was the original color of the hulk?",
@@ -61,8 +60,9 @@ for (var i = 0; i < quesBank[0].ansBank.length; i++) {
     button.attr("value", quesBank[0].ansBank[i]);
 
     // add text for each button
-
+    
 
     // add the buttons to the page
-    $(".form").append(button);
+    $(".form").prepend(button, quesBank[0].ansBank[i]);
+    
 }
