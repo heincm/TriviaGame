@@ -28,16 +28,17 @@ Grade function
 Next Question function
     after the answer is displayed, this will display all materials for the next question
 
+Will use radio buttons for this as only one radio button can be selected at a time
 
 */
 
 // Make object for game questions
 
 var quesBank = [{
-    name: "q1",
+    name: "q1", //this will be used as the name for the radio button
     ques: "What was the original color of the hulk?",
     ansBank: ["purple", "pink", "green", "grey"],
-    correct: "grey",
+    correct: "grey", //the correct answer for the question
 },
 {
     name: "q2",
@@ -45,3 +46,23 @@ var quesBank = [{
     ansBank: ["Stan Lee", "Your Mama", "My Mama", "Our Mama"],
     correct: "Stan Lee",
 }];  // end questions object
+
+//Creating the questions on the page
+for (var i = 0; i < quesBank[0].ansBank.length; i++) {
+    //create a button for each possible answer
+    var button = $("<input>");
+
+    //give each button a class
+    button.addClass("buttons");
+    
+    // add attributes to each button
+    button.attr("type", "radio");
+    button.attr("name", quesBank[0].name);
+    button.attr("value", quesBank[0].ansBank[i]);
+
+    // add text for each button
+
+
+    // add the buttons to the page
+    $(".form").append(button);
+}
