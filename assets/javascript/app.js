@@ -1,12 +1,5 @@
 /* psuedo-coding 
 
-Create objects for trivia questions
-objects will need
-    question
-    array of answers
-    correct answer
-    A name?
-
 Will need to create two timer functions
     Question timer
         Will allow 15 seconds per question
@@ -21,14 +14,12 @@ Submit Function
 
 Next Question function
     after the answer is displayed, this will display all materials for the next question
-
-Will use radio buttons for this as only one radio button can be selected at a time
-
 */
 
 // variables that will keep track of correct and incorrect answers
 var correct = 0;
 var incorrect = 0;
+var totalScore = correct + incorrect;
 
 // Make object for game questions
 var quesBank = [{
@@ -44,31 +35,48 @@ var quesBank = [{
     answer: "Stan Lee",
 }];  // end questions object
 
-//Creating the questions on the page
-for (var i = 0; i < quesBank[0].ansBank.length; i++) {
-    
-    //create a button for each possible answer
-    var button = $("<input>");
 
-    //give each button a class
-    button.addClass("buttons");
+    //Creating the questions on the page
+    for (var i = 0; i < quesBank[totalScore].ansBank.length; i++) {
 
-    // add attributes to each button
-    button.attr("type", "radio");
-    button.attr("name", quesBank[0].name);
-    button.attr("value", quesBank[0].ansBank[i]);
+        //create a button for each possible answer
+        var button = $("<input>");
 
-    // add the buttons to the page and add text to each button
-    $(".form").prepend(button, quesBank[0].ansBank[i]);
-}
+        //give each button a class
+        button.addClass("buttons");
+
+        // add attributes to each button
+        button.attr("type", "radio");
+        button.attr("name", quesBank[totalScore].name);
+        button.attr("value", quesBank[totalScore].ansBank[i]);
+
+        // add the buttons to the page and add text to each button
+        $(".form").prepend(button, quesBank[totalScore].ansBank[i]);
+    };
+
+
+// create interval timer
+// declaring timer variables and variable intial values
+var intervalId
+var counter
+counter = 15;
+intervalId = setInterval(function () {
+    counter--;
+    $(".jumbotron").html("<h1>" + counter + "</h1>")
+    if (counter === 0) {
+        clearInterval(intervalId);
+        $(".btn").trigger("click");
+    }
+}, 1000)
 
 // setting the click function to check answers
 $(".btn").on("click", function () {
     var userResponse = $("input:checked").val();
 
-    if (userResponse === quesBank[0].answer) {
+    if (userResponse === quesBank[totalScore].answer) {
         correct++;
     } else {
         incorrect++;
     }
 })
+
