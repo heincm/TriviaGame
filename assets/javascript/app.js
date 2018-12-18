@@ -1,25 +1,18 @@
 /* psuedo-coding 
 
-Will need to create two timer functions
-    Question timer
-        Will allow 15 seconds per question
-        Needs to be setInterval timer to display the amount of time left
     Answer timer
         Will be a setTimeout timer as it will fire only once
         will allow 5-10 seconds to view answer before moving on
-
-Submit Function
-    will reset interval timer
-    will trigger 
 
 Next Question function
     after the answer is displayed, this will display all materials for the next question
 */
 
 // variables that will keep track of correct and incorrect answers
+
 var correct = 0;
 var incorrect = 0;
-var totalScore = correct + incorrect;
+var totalScore = 0;
 
 // Make object for game questions
 var quesBank = [{
@@ -33,8 +26,24 @@ var quesBank = [{
     ques: "What's the name of the prolific Marvel Comic genuis who passed away in 2018?",
     ansBank: ["Stan Lee", "Your Mama", "My Mama", "Our Mama"],
     answer: "Stan Lee",
+},
+{
+    name: "q3",
+    ques: "What's year was Marvel Comics started?",
+    ansBank: ["1937", "1938", "1939", "1940"],
+    answer: "1939",
+},{
+    name: "q4",
+    ques: "What is the name of Spider-man's first girlfriend?",
+    ansBank: ["Mary Jane", "Your Mama", "My Mama", "Gwen Stacy"],
+    answer: "Gwen Stacy",
 }];  // end questions object
 
+function createQuestion() {
+    //add a button
+    var submit = $("<button>");
+    submit.addClass("btn btn-primary").attr("type", "button").text("submit");
+    $(".form").append(submit)
 
     //Creating the questions on the page
     for (var i = 0; i < quesBank[totalScore].ansBank.length; i++) {
@@ -53,6 +62,8 @@ var quesBank = [{
         // add the buttons to the page and add text to each button
         $(".form").prepend(button, quesBank[totalScore].ansBank[i]);
     };
+    startGame();
+}
 
 
 // create interval timer
@@ -69,14 +80,32 @@ intervalId = setInterval(function () {
     }
 }, 1000)
 
-// setting the click function to check answers
-$(".btn").on("click", function () {
-    var userResponse = $("input:checked").val();
+function startGame() {
+    // setting the click function to check answers
+    $(".btn").on("click", function () {
+        var userResponse = $("input:checked").val();
 
-    if (userResponse === quesBank[totalScore].answer) {
-        correct++;
-    } else {
-        incorrect++;
-    }
-})
+        if (userResponse === quesBank[totalScore].answer) {
+            correct++;
+        } else {
+            incorrect++;
+        }
+        clearInterval(intervalId);
+        $(".form").empty();
+        showAnswer();
+        
+    })
+}
 
+
+//create function to show correct answer and image after timer has run our
+function showAnswer() {
+    $(".form").text("The correct answer is: " + quesBank[totalScore].answer);
+    var image = $("<img>")
+    image.attr("src", "../TriviaGame/assets/images/" + quesBank[totalScore].answer + ".jpg").appendTo(".form")
+    var whatever = setTimeout(function() {
+        $(".form").empty();
+        createQuestion();
+      }, 5000);
+}
+createQuestion();
