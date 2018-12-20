@@ -92,7 +92,7 @@ $(".start").on("click", function () {
             $(".form").append(button, label);
         };
     };
-    var submitButton = $("<button>")
+    var submitButton = $("<button>");
     submitButton.text("submit").addClass("submit").appendTo(".submitButton");
     checkAnswers();
 });
@@ -102,23 +102,24 @@ $(".start").on("click", function () {
 function checkAnswers() {
     $(".submit").on("click", function () {
         console.log("working");
-for (var h = 0; h < quesBank.length; h++){
-        
-        if (($('input:radio[name="' + quesBank[h].name + '"]:checked').val() === quesBank[h].answer)) {
-            correct++;
-            console.log(correct);
-        } else {
-            incorrect++;
-            console.log(incorrect)
+
+        for (var h = 0; h < quesBank.length; h++) {
+
+            // check each group of responses for the correct answer
+            if (($('input:radio[name="' + quesBank[h].name + '"]:checked').val() === quesBank[h].answer)) {
+                correct++;
+                console.log(correct);
+            } else {
+                incorrect++;
+                console.log(incorrect)
+            }
         }
-    }
+        showScore();
     })
 };
 
-
-
-
-    
-      /* 
-    
-})*/
+function showScore() {
+    $(".mainContent").empty();
+    $(".mainContent").html(`<h2>Correct: ${correct}</h2>
+    <h2>Incorrect: ${incorrect}</h2>`)
+};
