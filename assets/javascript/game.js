@@ -24,12 +24,12 @@ var quesBank = [
         ansBank: ["Mary Jane", "Your Mama", "My Mama", "Gwen Stacy"],
         answer: "Gwen Stacy",
     },
-{
-    name: "q5",
-    ques: "Who was the very first Marvel Comics superhero?",
-    ansBank: ["Captain America", "Captain Marvel", "The Human Torch", "Iron Man"],
-    answer: "The Human Torch",
-},
+    {
+        name: "q5",
+        ques: "Who was the very first Marvel Comics superhero?",
+        ansBank: ["Captain America", "Captain Marvel", "The Human Torch", "Iron Man"],
+        answer: "The Human Torch",
+    },
 ];  // end questions object
 
 //keep track of which quesiton to be on
@@ -56,6 +56,7 @@ $(".start").on("click", function () {
             clearInterval(timer); //clear the interval timer if timeLeft hits 0
             console.log("time's up");
             gameCounter++;
+            $(".submit").trigger("click")
         }
     };
 
@@ -63,7 +64,7 @@ $(".start").on("click", function () {
 
 
 
-$(".start").remove();
+    $(".start").remove();
     // generating responses
     for (var i = 0; i < quesBank.length; i++) {
 
@@ -76,7 +77,7 @@ $(".start").remove();
 
             //create a button for each possible answer
             var button = $("<input></input>");
-
+            var label = $("<label>")
             //give each button a class
             button.addClass("buttons");
 
@@ -84,26 +85,40 @@ $(".start").remove();
             button.attr("type", "radio");
             button.attr("name", quesBank[i].name);
             button.attr("value", quesBank[i].ansBank[g]);
-            button.append(quesBank[i].ansBank[g]);
+            label.text(quesBank[i].ansBank[g]);
+            button.append(label);
 
             // add the buttons to the page and add text to each button
-            $(".form").append(button);
+            $(".form").append(button, label);
         };
     };
-var submitButton = $("<button>")
-submitButton.text("submit").appendTo(".submitButton");
+    var submitButton = $("<button>")
+    submitButton.text("submit").addClass("submit").appendTo(".submitButton");
+    checkAnswers();
 });
 
 
 
-
-$(document).ready("click", ".buttons", function () {
-    var userResponse = $("input:checked").val();
-    if (userResponse === quesBank[i].answer) {
-        correct++;
-        console.log(wins);
-    } else {
-        incorrect++;
-        console.log(losses)
+function checkAnswers() {
+    $(".submit").on("click", function () {
+        console.log("working");
+for (var h = 0; h < quesBank.length; h++){
+        
+        if (($('input:radio[name="' + quesBank[h].name + '"]:checked').val() === quesBank[h].answer)) {
+            correct++;
+            console.log(correct);
+        } else {
+            incorrect++;
+            console.log(incorrect)
+        }
     }
-})
+    })
+};
+
+
+
+
+    
+      /* 
+    
+})*/
