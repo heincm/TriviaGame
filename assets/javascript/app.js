@@ -7,7 +7,7 @@
 Next Question function
     after the answer is displayed, this will display all materials for the next question
 */
-/*
+
 // variables that will keep track of correct and incorrect answers
 
 var correct = 0;
@@ -42,7 +42,7 @@ var quesBank = [{
 function createQuestion() {
     // add question text
     var question = $("<h3>")
-    question.text(quesBank[totalScore].ques)
+    question.text(quesBank[correct].ques)
     $(".form").append(question)
     //add a button
     var submit = $("<button>");
@@ -50,7 +50,7 @@ function createQuestion() {
     $(".form").append(submit)
 
     //Creating the questions on the page
-    for (var i = 0; i < quesBank[totalScore].ansBank.length; i++) {
+    for (var i = 0; i < quesBank[correct].ansBank.length; i++) {
 
         //create a button for each possible answer
         var button = $("<input>");
@@ -60,11 +60,11 @@ function createQuestion() {
 
         // add attributes to each button
         button.attr("type", "radio");
-        button.attr("name", quesBank[totalScore].name);
-        button.attr("value", quesBank[totalScore].ansBank[i]);
+        button.attr("name", quesBank[correct].name);
+        button.attr("value", quesBank[correct].ansBank[i]);
 
         // add the buttons to the page and add text to each button
-        $(".form").prepend(button, quesBank[totalScore].ansBank[i]);
+        $(".form").prepend(button, quesBank[correct].ansBank[i]);
     };
     startGame();
 }
@@ -104,9 +104,9 @@ function startGame() {
 var whatever
 //create function to show correct answer and image after timer has run our
 function showAnswer() {
-    $(".form").text("The correct answer is: " + quesBank[totalScore].answer);
+    $(".form").text("The correct answer is: " + quesBank[correct].answer);
     var image = $("<img>")
-    image.attr("src", "../TriviaGame/assets/images/" + quesBank[totalScore].answer + ".jpg").appendTo(".form")
+    image.attr("src", "../TriviaGame/assets/images/" + quesBank[correct].answer + ".jpg").appendTo(".form")
     whatever = setTimeout(function () {
         $(".form").empty();
         createQuestion();
@@ -117,7 +117,7 @@ function showAnswer() {
 }
 createQuestion();
 
-*/
+
 
 
 /* 
@@ -135,7 +135,7 @@ Variables needed
 */
 
 // Make object for game questions
-var quesBank = [
+/*var quesBank = [
     {
         name: "q1", //this will be used as the name for the radio button
         ques: "What was the original color of the hulk?",
@@ -191,14 +191,14 @@ $(".start").on("click", function () {
     countdown();
 
     //generate question
-    var question = $("<h2></h2>");
+    var question = $("<h2>");
     question.text(quesBank[gameCounter].ques).appendTo(".form");
 
     // generating responses
     for (var i = 0; i < quesBank[gameCounter].ansBank.length; i++) {
 
         //create a button for each possible answer
-        var button = $("<input>");
+        var button = $("<button>");
 
         //give each button a class
         button.addClass("buttons");
@@ -207,17 +207,21 @@ $(".start").on("click", function () {
         button.attr("type", "radio");
         button.attr("name", quesBank[gameCounter].name);
         button.attr("value", quesBank[gameCounter].ansBank[i]);
-
+        button.text(quesBank[gameCounter].ansBank[i]);
         // add the buttons to the page and add text to each button
-        $(".form").append(button, quesBank[gameCounter].ansBank[i]);
+        $(".form").append(button);
     };
 })
 
-$(document).ready(function () {
-    var userResponse = $("input:checked").val();
 
+
+$( document ).ready("click", ".buttons", function() {
+    var userResponse = $(".buttons").val();
     if (userResponse === quesBank[gameCounter].answer) {
         wins++;
         console.log(wins);
-    };
-});
+    } else{
+        losses++;
+        console.log(losses)
+    }
+});*/

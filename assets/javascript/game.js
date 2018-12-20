@@ -32,44 +32,45 @@ var quesBank = [
     },
 ];  // end questions object
 
-//keep track of which quesiton to be on
-var gameCounter = 0;
+// variables to keep score
 var correct = 0;
 var incorrect = 0;
 
-
-//This function starts the game
+// This function starts the game once the user clicks the start button
 $(".start").on("click", function () {
 
-    //start the interval timer
-    var timer  //variable for setInterval
-    var timeLeft = 5;
+    // show the hidden timer text
+    $(".timer").css("display", "block");
 
+    // start the interval timer
+    var timer  //variable for setInterval
+    var timeLeft = 60; // number of seconds for the timer
+
+    // 
     function countdown() {
         timer = setInterval(timeUp, 1000);
     };
 
     function timeUp() {
         timeLeft--
-        console.log(timeLeft)
+        $(".timer").html(`<h2>Time Remaining: ${timeLeft} </h2>`)
         if (timeLeft === 0) {
-            clearInterval(timer); //clear the interval timer if timeLeft hits 0
-            console.log("time's up");
-            gameCounter++;
-            $(".submit").trigger("click")
+            clearInterval(timer); // clear the interval timer if timeLeft hits 0
+            $(".submit").trigger("click") // click the submit button and check answers
         }
     };
 
     countdown();
 
-
-
+    // remove the start button and welcome text
     $(".start").remove();
+    $(".welcome").remove();
+
     // generating responses
     for (var i = 0; i < quesBank.length; i++) {
 
         //generate question
-        var question = $("<h2>");
+        var question = $("<h3>");
         question.text(quesBank[i].ques).addClass(quesBank[i].answer).appendTo(".form");
 
         // add radio button for each response for each question
@@ -93,25 +94,20 @@ $(".start").on("click", function () {
         };
     };
     var submitButton = $("<button>");
-    submitButton.text("submit").addClass("submit").appendTo(".submitButton");
+    submitButton.text("Submit").addClass("submit btn btn-primary").appendTo(".submitButton");
     checkAnswers();
 });
 
-
-
 function checkAnswers() {
     $(".submit").on("click", function () {
-        console.log("working");
 
         for (var h = 0; h < quesBank.length; h++) {
 
             // check each group of responses for the correct answer
             if (($('input:radio[name="' + quesBank[h].name + '"]:checked').val() === quesBank[h].answer)) {
                 correct++;
-                console.log(correct);
             } else {
                 incorrect++;
-                console.log(incorrect)
             }
         }
         showScore();
@@ -120,6 +116,7 @@ function checkAnswers() {
 
 function showScore() {
     $(".mainContent").empty();
-    $(".mainContent").html(`<h2>Correct: ${correct}</h2>
-    <h2>Incorrect: ${incorrect}</h2>`)
+    $(".mainContent").html(`<h2>Here's how you did</h2>
+    <h3>Correct Answers: ${correct}</h3>
+    <h3>Incorrect Answers: ${incorrect}</h3>`)
 };

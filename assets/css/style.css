@@ -1,8 +1,21 @@
 
-.buttons, button {
-margin-left: 20px;
+.buttons {
+margin-left: 10px;
+margin-right: 5px;
 }
 
-img {
-    width: 200px;
+.timer {
+    display: none;
+}
+
+.form {
+    text-align: center;
+}
+
+h3 {
+    margin-top: 1em;
+}
+
+h2, h3 {
+    text-align: center;
 }
