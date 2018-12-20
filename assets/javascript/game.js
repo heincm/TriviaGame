@@ -64,7 +64,7 @@ $(".start").on("click", function () {
 
     // remove the start button and welcome text
     $(".start").remove();
-    $(".welcome").remove();
+    $(".welcome").empty();
 
     // generating responses
     for (var i = 0; i < quesBank.length; i++) {
