@@ -9,19 +9,19 @@ var quesBank = [
     {
         name: "q2",
         ques: "What's the name of the prolific Marvel Comic genuis who passed away in 2018?",
-        ansBank: ["Stan Lee", "Your Mama", "My Mama", "Our Mama"],
+        ansBank: ["Stan Lee", "Bruce Lee", "Stanley Le", "Tony Stark"],
         answer: "Stan Lee",
     },
     {
         name: "q3",
-        ques: "What's year was Marvel Comics started?",
+        ques: "What year was Marvel Comics started?",
         ansBank: ["1937", "1938", "1939", "1940"],
         answer: "1939",
     },
     {
         name: "q4",
         ques: "What is the name of Spider-man's first girlfriend?",
-        ansBank: ["Mary Jane", "Your Mama", "My Mama", "Gwen Stacy"],
+        ansBank: ["Mary Jane", "Stacey Nguyen", "Courtney Cox", "Gwen Stacy"],
         answer: "Gwen Stacy",
     },
     {
